@@ -371,7 +371,7 @@ function esp.Toggle(property, bool)
                         updateObjectEsp(object)
                     end
                 end)
-            else 
+            elseif not bool and trinketrefresh then 
                 trinketrefresh:Disconnect()
                 trinketrefresh = nil
             end
@@ -382,7 +382,7 @@ function esp.Toggle(property, bool)
         task.wait(.1)
         if bool then
             esprefresh = RunService.RenderStepped:Connect(updateEsp);
-        else 
+        elseif not bool and esprefresh then
             esprefresh:Disconnect()
             esprefresh = nil
         end
