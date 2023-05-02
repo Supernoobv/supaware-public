@@ -192,7 +192,7 @@ local function updateEsp()
         local character = player and player.Character;
 
 
-        if character and getgenv().playerEsp then
+        if character and playerresp then
             local position, visible = wtvp(camera, character.HumanoidRootPart.Position);
 
             if position.Z >= getgenv().maxPlayerRadius then
@@ -264,7 +264,7 @@ local function updateObjectEsp()
 
         local color, name = getObjectInfo(object)
 
-        if getgenv().ROGUELINEAGE and getgenv().objectEsp then
+        if getgenv().ROGUELINEAGE and trinketesptoggled then
             local shouldrender = true
             if #commontrinkets > 0 and table.find(commontrinkets, name) and not trinketesp then
                 shouldrender = false
@@ -290,7 +290,7 @@ local function updateObjectEsp()
 
         if name == "" then continue end
 
-        if getgenv().objectEsp and position.Z <= getgenv().maxObjectRadius and visible then
+        if trinketesptoggled and position.Z <= getgenv().maxObjectRadius and visible then
             local scaleFactor = 1 / (position.Z * math.tan(math.rad(camera.FieldOfView * 0.5)) * 2) * 100;
             local width, height = math.floor(15 * scaleFactor), math.floor(15 * scaleFactor);
             local x, y = math.floor(position.X), math.floor(position.Y);
