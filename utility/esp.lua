@@ -28,6 +28,8 @@ local gemesp = false
 local scrollesp = false
 local artifactesp = false
 
+local trinketesptoggled = false
+local playerresp = false
 local esp = {}
 
 local function drawPlayerEsp(player)
@@ -326,8 +328,11 @@ local LastRefresh = tick()
 Players.PlayerAdded:Connect(drawPlayerEsp);
 Players.PlayerRemoving:Connect(removePlayerEsp);
 
-RunService.RenderStepped:Connect(updateEsp);
-RunService.Heartbeat:Connect(function()
+local esprefresh
+esprefresh = RunService.RenderStepped:Connect(updateEsp);
+
+local trinketrefresh
+trinketrefresh = RunService.Heartbeat:Connect(function()
     if (tick() - LastRefresh) > (getgenv().TRINKET_REFRESHRATE) then
         updateObjectEsp(object)
     end
@@ -363,6 +368,29 @@ function esp.Toggle(property, bool)
             scrollesp = bool
         elseif property == "Artifacts" then
             artifactesp = bool
+        elseif property == "TrinketEsp" then 
+            trinketesptoggled = bool
+            task.wait(.1)
+            if bool then
+                trinketrefresh = RunService.Heartbeat:Connect(function()
+                    if (tick() - LastRefresh) > (getgenv().TRINKET_REFRESHRATE) then
+                        updateObjectEsp(object)
+                    end
+                end)
+            else 
+                trinketrefresh:Disconnect()
+                trinketrefresh = nil
+            end
+        end
+    end
+    if property == "playerEsp" then
+        playerresp = bool
+        task.wait(.1)
+        if bool then
+            esprefresh = RunService.RenderStepped:Connect(updateEsp);
+        else 
+            esprefresh:Disconnect()
+            esprefresh = nil
         end
     end
 end
