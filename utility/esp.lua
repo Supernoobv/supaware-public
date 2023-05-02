@@ -309,7 +309,7 @@ local function updateObjectEsp()
 
             esp.box.Visible = getgenv().boxEsp;
             esp.boxOutline.Visible = getgenv().boxEsp;
-            esp.name.Visible = trinketesptoggled;
+            esp.name.Visible = true;
             esp.distance.Visible = getgenv().distanceEsp;
 
             esp.name.Size = getgenv().NAME_SIZE
