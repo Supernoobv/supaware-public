@@ -329,14 +329,8 @@ Players.PlayerAdded:Connect(drawPlayerEsp);
 Players.PlayerRemoving:Connect(removePlayerEsp);
 
 local esprefresh
-esprefresh = RunService.RenderStepped:Connect(updateEsp);
 
 local trinketrefresh
-trinketrefresh = RunService.Heartbeat:Connect(function()
-    if (tick() - LastRefresh) > (getgenv().TRINKET_REFRESHRATE) then
-        updateObjectEsp(object)
-    end
-end)
 
 for idx, player in ipairs(Players:GetPlayers()) do
     if idx ~= 1 then drawPlayerEsp(player); end
